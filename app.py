@@ -6,12 +6,12 @@ Run with:
 
 Tabs
 ----
-  📊  Dashboard      — KPI cards, trend line, appliance bars, pie chart
-  🔌  Data Input     — Upload CSV or enter rows manually
-  🔮  Predictions    — ML forecast + accuracy metrics
-  💡  Optimisation   — Tips, peak-shift analysis, efficiency grades
-  🚨  Alerts         — Anomaly detection and warnings
-  📄  Reports        — Download CSV / PDF
+     Dashboard      — KPI cards, trend line, appliance bars, pie chart
+     Data Input     — Upload CSV or enter rows manually
+     Predictions    — ML forecast + accuracy metrics
+     Optimisation   — Tips, peak-shift analysis, efficiency grades
+     Alerts         — Anomaly detection and warnings
+     Reports        — Download CSV / PDF
 """
 
 import streamlit as st
@@ -158,7 +158,7 @@ with st.sidebar:
             try:
                 df_raw = load_and_validate(uploaded)
                 st.session_state["df_raw"] = df_raw
-                st.success(f"✅ Loaded {len(df_raw):,} rows")
+                st.success(f"Loaded {len(df_raw):,} rows")
             except ValueError as e:
                 st.error(str(e))
     else:
@@ -167,7 +167,7 @@ with st.sidebar:
             if st.button("📊 Load Sample Data", use_container_width=True):
                 df_raw = pd.read_csv(sample_path)
                 st.session_state["df_raw"] = df_raw
-                st.success(f"✅ Sample loaded ({len(df_raw):,} rows)")
+                st.success(f"Sample loaded ({len(df_raw):,} rows)")
         else:
             st.warning("Run `generate_sample_data.py` first.")
 
@@ -248,12 +248,12 @@ PALETTE = px.colors.qualitative.Bold
 # TABS
 # ══════════════════════════════════════════════════════════════════════════════
 tab_dash, tab_input, tab_pred, tab_opt, tab_alerts, tab_report = st.tabs([
-    "📊 Dashboard",
-    "🔌 Data Input",
-    "🔮 Predictions",
-    "💡 Optimisation",
-    "🚨 Alerts",
-    "📄 Reports",
+    "Dashboard",
+    "Data Input",
+    "Predictions",
+    "Optimisation",
+    "Alerts",
+    "Reports",
 ])
 
 
@@ -261,15 +261,15 @@ tab_dash, tab_input, tab_pred, tab_opt, tab_alerts, tab_report = st.tabs([
 # TAB 1 — DASHBOARD
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_dash:
-    st.header("📊 Energy Dashboard")
+    st.header("Energy Dashboard")
 
     # ── KPI cards ─────────────────────────────────────────────────────────────
     c1, c2, c3, c4, c5 = st.columns(5)
     with c1: st.metric("⚡ Total kWh",      f"{stats['total_kwh']:,.2f}")
-    with c2: st.metric("📅 Avg Daily kWh",  f"{stats['avg_daily_kwh']:.2f}")
-    with c3: st.metric("🔴 Peak-Hour kWh",  f"{stats['peak_kwh']:,.2f}")
-    with c4: st.metric("💰 Est. Cost",       f"₹ {stats['cost_estimate']:,.0f}")
-    with c5: st.metric("🏆 Top Appliance",   stats["top_appliance"])
+    with c2: st.metric("Avg Daily kWh",  f"{stats['avg_daily_kwh']:.2f}")
+    with c3: st.metric("Peak-Hour kWh",  f"{stats['peak_kwh']:,.2f}")
+    with c4: st.metric("Est. Cost",       f"₹ {stats['cost_estimate']:,.0f}")
+    with c5: st.metric("Top Appliance",   stats["top_appliance"])
 
     st.divider()
 
@@ -370,7 +370,7 @@ with tab_dash:
     st.divider()
 
     # ── Row 3: Hourly heatmap ─────────────────────────────────────────────────
-    st.subheader("🕐 Average Energy Use by Hour of Day")
+    st.subheader("Average Energy Use by Hour of Day")
     fig_hour = px.bar(
         hourly_df, x="hour", y="avg_kwh",
         color="avg_kwh", color_continuous_scale="Reds",
@@ -389,16 +389,16 @@ with tab_dash:
         xaxis=dict(tickmode="linear", dtick=1),
     )
     st.plotly_chart(fig_hour, use_container_width=True)
-    st.caption("🔴 Shaded bands = peak hours (5 PM – 9 PM) — highest tariff window.")
+    st.caption("Shaded bands = peak hours (5 PM – 9 PM) — highest tariff window.")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
 # TAB 2 — DATA INPUT
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_input:
-    st.header("🔌 Data Input & Management")
+    st.header("Data Input & Management")
 
-    st.subheader("📋 Raw Data Preview")
+    st.subheader("Raw Data Preview")
     search_app = st.selectbox(
         "Filter by appliance",
         ["All"] + sorted(df_raw["appliance"].unique().tolist()),
@@ -412,7 +412,7 @@ with tab_input:
     st.divider()
 
     # ── Manual entry ──────────────────────────────────────────────────────────
-    st.subheader("✏️ Add a Manual Record")
+    st.subheader("Add a Manual Record")
     with st.form("manual_entry", clear_on_submit=True):
         mc1, mc2, mc3 = st.columns(3)
         with mc1:
@@ -441,14 +441,14 @@ with tab_input:
             )
             # Force rebuild
             st.session_state["proc"] = None
-            st.success(f"✅ Added: {m_app} | {m_watts}W × {m_duration}h "
+            st.success(f"Added: {m_app} | {m_watts}W × {m_duration}h "
                        f"= {m_watts * m_duration / 1000:.3f} kWh")
             st.rerun()
 
     st.divider()
 
     # ── kWh calculator ────────────────────────────────────────────────────────
-    st.subheader("🧮 Quick kWh Calculator")
+    st.subheader("Quick kWh Calculator")
     kc1, kc2, kc3, kc4 = st.columns(4)
     with kc1: calc_watts = st.number_input("Watts", min_value=0.0, value=1000.0, key="calc_w")
     with kc2: calc_hrs   = st.number_input("Hours/day", min_value=0.0, value=4.0, step=0.5, key="calc_h")
@@ -463,7 +463,7 @@ with tab_input:
 # TAB 3 — PREDICTIONS
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_pred:
-    st.header("🔮 ML Energy Forecast")
+    st.header("ML Energy Forecast")
 
     # ── Model metrics ─────────────────────────────────────────────────────────
     col_m1, col_m2, col_m3, col_m4 = st.columns(4)
@@ -474,7 +474,7 @@ with tab_pred:
     with col_m4: st.metric("MAPE", f"{metrics.get('MAPE', 0):.1f}%")
 
     r2 = metrics.get("R²", 0)
-    quality = "🟢 Excellent" if r2 >= 0.85 else ("🟡 Good" if r2 >= 0.65 else "🔴 Fair")
+    quality = "Excellent" if r2 >= 0.85 else ("Good" if r2 >= 0.65 else "Fair")
     st.info(f"**Model quality:** {quality}  |  **Trend:** {pred.get_trend()}")
 
     st.divider()
@@ -570,7 +570,7 @@ with tab_pred:
 # TAB 4 — OPTIMISATION
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_opt:
-    st.header("💡 Optimisation Suggestions")
+    st.header("Optimisation Suggestions")
 
     # ── Efficiency score ──────────────────────────────────────────────────────
     score = optim.overall_score()
@@ -589,7 +589,7 @@ with tab_opt:
             unsafe_allow_html=True
         )
     with sc2:
-        label = "🌟 Excellent" if score >= 70 else ("⚙️ Average" if score >= 45 else "🔴 Poor — Action Needed")
+        label = "Excellent" if score >= 70 else ("⚙️ Average" if score >= 45 else "🔴 Poor — Action Needed")
         st.subheader(f"Overall Efficiency Score: {score}/100  —  {label}")
         st.markdown(
             "This score compares your appliances against **industry benchmarks**. "
@@ -600,7 +600,7 @@ with tab_opt:
     st.divider()
 
     # ── Efficiency grades table ───────────────────────────────────────────────
-    st.subheader("🏅 Appliance Efficiency Grades")
+    st.subheader("Appliance Efficiency Grades")
     grades = optim.get_efficiency_ratings()
 
     def colour_grade(g):
@@ -615,7 +615,7 @@ with tab_opt:
     st.divider()
 
     # ── Peak-shift savings ────────────────────────────────────────────────────
-    st.subheader("🔄 Peak-Hour Shift Potential")
+    st.subheader("Peak-Hour Shift Potential")
     peak_info = optim.get_peak_shift_savings()
     ps1, ps2, ps3, ps4 = st.columns(4)
     with ps1: st.metric("Peak kWh",        f"{peak_info['total_peak_kwh']:,.2f}")
@@ -661,7 +661,7 @@ with tab_opt:
 # TAB 5 — ALERTS
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_alerts:
-    st.header("🚨 Alerts & Anomalies")
+    st.header("Alerts & Anomalies")
 
     alerts = optim.get_alert_messages()
     if alerts:
@@ -672,12 +672,12 @@ with tab_alerts:
                 unsafe_allow_html=True
             )
     else:
-        st.success("✅ No critical alerts! Your usage looks normal.")
+        st.success("No critical alerts! Your usage looks normal.")
 
     st.divider()
 
     # ── High-usage days ───────────────────────────────────────────────────────
-    st.subheader("📅 High-Usage Days (Top 25%)")
+    st.subheader("High-Usage Days (Top 25%)")
     high = proc.detect_high_usage(75)
     if not high.empty:
         avg = daily_df["kwh"].mean()
@@ -691,7 +691,7 @@ with tab_alerts:
     st.divider()
 
     # ── Live simulation indicator ─────────────────────────────────────────────
-    st.subheader("⚡ Simulated Real-Time Monitor")
+    st.subheader("Simulated Real-Time Monitor")
     st.info("This simulates a live reading — values update each time you interact.")
     sim_c1, sim_c2, sim_c3 = st.columns(3)
     curr_hour = datetime.now().hour
@@ -699,30 +699,30 @@ with tab_alerts:
     avg_hour  = hourly_df[hourly_df["hour"] == curr_hour]["avg_kwh"].values
     current_draw = float(avg_hour[0]) if len(avg_hour) else 0.0
     with sim_c1:
-        st.metric("🕐 Current Hour",     f"{curr_hour:02d}:00")
+        st.metric("Current Hour",     f"{curr_hour:02d}:00")
     with sim_c2:
-        st.metric("📡 Avg Draw (this hr)", f"{current_draw:.4f} kWh")
+        st.metric("Avg Draw (this hr)", f"{current_draw:.4f} kWh")
     with sim_c3:
-        st.metric("⚠️ Peak Status", "🔴 PEAK HOURS" if is_peak else "🟢 Off-peak")
+        st.metric("Peak Status", "PEAK HOURS" if is_peak else "Off-peak")
 
     if is_peak:
-        st.error("🔴 You are currently in peak hours (5 PM – 9 PM). "
+        st.error("You are currently in peak hours (5 PM – 9 PM). "
                  "Consider deferring heavy loads like washing machine, water heater, iron.")
     else:
-        st.success("🟢 Currently off-peak — ideal time to run high-wattage appliances.")
+        st.success("Currently off-peak — ideal time to run high-wattage appliances.")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
 # TAB 6 — REPORTS
 # ──────────────────────────────────────────────────────────────────────────────
 with tab_report:
-    st.header("📄 Export Reports")
+    st.header("Export Reports")
 
     col_csv, col_pdf = st.columns(2)
 
     # ── CSV export ─────────────────────────────────────────────────────────────
     with col_csv:
-        st.subheader("📊 CSV Export")
+        st.subheader("CSV Export")
         csv_choice = st.selectbox(
             "Which dataset?",
             ["Raw data", "Daily totals", "Appliance summary", "Forecast"]
@@ -755,9 +755,9 @@ with tab_report:
 
     # ── PDF export ─────────────────────────────────────────────────────────────
     with col_pdf:
-        st.subheader("📋 PDF Summary Report")
+        st.subheader("PDF Summary Report")
         st.markdown("Generates a formatted PDF containing KPIs, appliance table, tips and alerts.")
-        if st.button("📄 Generate PDF Report", use_container_width=True):
+        if st.button("Generate PDF Report", use_container_width=True):
             with st.spinner("Building PDF…"):
                 pdf_bytes = export_summary_pdf(
                     stats        = stats,
@@ -766,18 +766,18 @@ with tab_report:
                     alerts       = optim.get_alert_messages(),
                 )
             st.download_button(
-                label="⬇️ Download PDF",
+                label="Download PDF",
                 data=pdf_bytes,
                 file_name="energy_report.pdf",
                 mime="application/pdf",
                 use_container_width=True,
             )
-            st.success("✅ PDF ready!")
+            st.success("PDF ready!")
 
     st.divider()
 
     # ── Shareable summary ─────────────────────────────────────────────────────
-    st.subheader("📋 On-Screen Summary")
+    st.subheader("On-Screen Summary")
     summary_md = f"""
 | Metric | Value |
 |---|---|

@@ -1,7 +1,6 @@
 #  Smart Energy Monitoring & Management System
 
 A complete software-based household energy monitoring system built with Python and Streamlit.
-No hardware required — works entirely with simulated or uploaded CSV data.
 
 ---
 

@@ -1,11 +1,11 @@
-# ⚡ Smart Energy Monitoring & Management System
+#  Smart Energy Monitoring & Management System
 
 A complete software-based household energy monitoring system built with Python and Streamlit.
 No hardware required — works entirely with simulated or uploaded CSV data.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 smart_energy/
@@ -24,7 +24,7 @@ smart_energy/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Install dependencies
 ```bash
@@ -45,7 +45,7 @@ Open http://localhost:8501 in your browser.
 
 ---
 
-## 🔧 CSV Format
+##  CSV Format
 
 Upload your own data with these columns:
 
@@ -59,7 +59,7 @@ Upload your own data with these columns:
 
 ---
 
-## 📊 Features
+##  Features
 
 ### Tab 1 — Dashboard
 - KPI cards: total kWh, avg daily, peak-hour share, estimated cost, top appliance
@@ -100,7 +100,7 @@ Upload your own data with these columns:
 
 ---
 
-## 🤖 ML Model Details
+##  ML Model Details
 
 - **Algorithm**: Polynomial Regression (degree=2) via scikit-learn Pipeline
 - **Features**: Integer day-index (0 … N)
@@ -111,7 +111,7 @@ Upload your own data with these columns:
 
 ---
 
-## 📦 Dependencies
+##  Dependencies
 
 | Library | Purpose |
 |---------|---------|
@@ -124,12 +124,12 @@ Upload your own data with these columns:
 
 ---
 
-## 🏠 Supported Appliances
+##  Supported Appliances
 
 Air Conditioner, Refrigerator, Washing Machine, Water Heater, Television,
 Microwave, Laptop, Lights, Electric Fan, Iron
 
 ---
 
-## 📄 License
+##  License
 MIT — free to use and modify.

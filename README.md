@@ -128,8 +128,3 @@ Upload your own data with these columns:
 
 Air Conditioner, Refrigerator, Washing Machine, Water Heater, Television,
 Microwave, Laptop, Lights, Electric Fan, Iron
-
----
-
-##  License
-MIT — free to use and modify.
